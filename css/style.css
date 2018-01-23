@@ -1,0 +1,23 @@
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 80px;
+  margin: 5px 0 0;
+}
+
+.game {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-card {
+  height: 120px;
+  width: 120px;
+  background-color: lightpink;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
