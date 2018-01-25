@@ -21,9 +21,9 @@ function getRandomFace(randomIndex) {
   return face;
 }
 
-function assignCardFaces(gameCardElements) {
+function assignCardFaces(cardFaces) {
   for (var i = 0; i < 12; i++) {
-    $(gameCardElements[i]).html("<h2>" + getRandomFace() + "</h2>");
+    $(cardFaces[i]).html("<h2>" + getRandomFace() + "</h2>");
   }
 }
 
@@ -41,7 +41,7 @@ function hideCards(flippedCards) {
   setTimeout(function() {
     $(flippedCards[0]).removeClass("flipped");
     $(flippedCards[1]).removeClass("flipped");
-  }, 300)
+  }, 600)
 }
 
 function hideScoreBoard($scoreBoard) {
@@ -65,6 +65,7 @@ function renderWinScreen($winScreen) {
 $(document).ready(function(){
   var $gameContainer = $("#game-container");
   var gameCardElements = $(".game-card");
+  var cardFaces = $(".game-card .back");
   var $scoreBoard = $("#score-board");
   var $gameClicks = $(".click-count");
   var $lowScoreOutput = $(".low-score");
@@ -72,12 +73,12 @@ $(document).ready(function(){
   var $replay = $("#replay");
 
   assignLowScore($lowScoreOutput);
-  assignCardFaces(gameCardElements);
+  assignCardFaces(cardFaces);
 
-  $gameContainer.on("click", ".game-card", function(event) {
+  $gameContainer.on("click", ".front", function(event) {
     if(event.target != this){ return true; }
 
-    var $card = $(event.target);
+    var $card = $(event.target).parent();
 
     if (isNotFlipped($card)) {
       $card.addClass("flipped");

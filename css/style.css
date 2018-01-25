@@ -10,7 +10,6 @@ h1 {
 h2 {
   font-size: 80px;
   margin: 5px 0 0;
-  visibility: hidden;
 }
 
 p {
@@ -44,17 +43,38 @@ header {
   justify-content: center;
   align-items: center;
   max-width: 900px;
+  position: relative;
+  perspective: 800px;
 }
 
 .game-card {
   height: 180px;
   width: 180px;
-  background-color: lightpink;
   margin: 5px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.game-card figure {
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.game-card .front {
+  background-color: lightblue;
+}
+
+.game-card .back {
+  background-color: lightpink;
+  transform: rotateY(180deg);
 }
 
 @media (max-width: 800px) {
@@ -64,8 +84,8 @@ header {
   }
 }
 
-.game-card.flipped h2 { 
-  visibility: visible;
+.game-card.flipped {
+  transform: rotateY(180deg);
 }
 
 #score-board {
