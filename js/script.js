@@ -1,7 +1,13 @@
 var possibleCardFaces = ["&#x1F600;", "&#x1F60D;", "&#x1F636;", "&#x1F61C;", "&#x1F92B;", "&#x1F913;", "&#x1F600;", "&#x1F60D;", "&#x1F636;", "&#x1F61C;", "&#x1F92B;", "&#x1F913;"];
+var lowScore = localStorage.getItem("lowScore");
 var score = 0;
 var flippedCards = [];
 var matchedCards = [];
+
+function assignLowScore($lowScoreOutput) {
+  lowScore = lowScore || "N/A";
+  $lowScoreOutput.text("Low Score: " + lowScore);
+}
 
 function getRandomIndex(length) {
   return Math.floor(Math.random() * length);
@@ -21,18 +27,13 @@ function assignCardFaces(gameCardElements) {
   }
 }
 
-function isNotMatched($card) {
-  if (matchedCards.indexOf($card) === -1) {
-    return true;
-  }
-  return false;
-}
-
 function isNotFlipped($card) {
-  if (flippedCards.indexOf($card) === -1) {
-    return true;
+  for (var i = 0; i < flippedCards.length; i++) {
+    if (flippedCards[i][0] === $card[0]) {
+      return false;
+    }
   }
-  return false;
+  return true;
 }
 
 function areMatching(flippedCards) {
@@ -43,16 +44,24 @@ function hideCards(flippedCards) {
   setTimeout(function() {
     $(flippedCards[0]).removeClass("flipped");
     $(flippedCards[1]).removeClass("flipped");
-  }, 500)
+  }, 300)
 }
 
 function hideScoreBoard($scoreBoard) {
   $scoreBoard.addClass("hidden");
 }
 
+function checkForLowScore(score, $lowScoreOutput) {
+  if (lowScore === "N/A") {
+    lowScore = Infinity;
+  }
+  if (score < lowScore) {
+    localStorage.setItem("lowScore", score);
+    $lowScoreOutput.html("<h4>New</h4> Low Score: " + score);
+  }
+}
+
 function renderWinScreen($winScreen) {
-  var $finalClickCount = $("#final-click-count");
-  $finalClickCount.text("Total Clicks: " + score)
   $winScreen.addClass("visible");
 }
 
@@ -60,23 +69,24 @@ $(document).ready(function(){
   var $gameContainer = $("#game-container");
   var gameCardElements = $(".game-card");
   var $scoreBoard = $("#score-board");
-  var $clickCount = $("#click-count");
+  var $gameClicks = $(".click-count");
+  var $lowScoreOutput = $(".low-score");
   var $winScreen = $("#win-screen");
   var $replay = $("#replay");
 
+  assignLowScore($lowScoreOutput);
   assignCardFaces(gameCardElements);
 
   $gameContainer.on("click", ".game-card", function(event) {
+    if(event.target != this){ return true; }
+
     var $card = $(event.target);
 
     if (isNotFlipped($card)) {
-      score++;
-      $clickCount.text("Total Clicks: " + score);
-    }
-
-    if (isNotMatched($card) && isNotFlipped($card)) {
       $card.addClass("flipped");
       flippedCards.push($card);
+      score++;
+      $gameClicks.text("Total Clicks: " + score);
     }
 
     if (flippedCards.length === 2) {
@@ -90,6 +100,7 @@ $(document).ready(function(){
 
     if(matchedCards.length === gameCardElements.length) {
       hideScoreBoard($scoreBoard);
+      checkForLowScore(score, $lowScoreOutput);
       renderWinScreen($winScreen);
     }
   });
