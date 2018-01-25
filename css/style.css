@@ -43,16 +43,25 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  max-width: 900px;
 }
 
 .game-card {
-  height: 150px;
-  width: 150px;
+  height: 180px;
+  width: 180px;
   background-color: lightpink;
   margin: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .game-card {
+    height: 150px;
+    width: 150px;
+  }
 }
 
 .game-card.flipped h2 { 
@@ -95,7 +104,6 @@ header {
 }
 
 footer {
-  color: white;
   background-color: lightpink;
   padding: 10px;
   width: 100%;
@@ -103,5 +111,5 @@ footer {
 }
 
 footer a:hover {
-  color: #999;
+  color: #444;
 }

@@ -28,12 +28,9 @@ function assignCardFaces(gameCardElements) {
 }
 
 function isNotFlipped($card) {
-  for (var i = 0; i < flippedCards.length; i++) {
-    if (flippedCards[i][0] === $card[0]) {
-      return false;
-    }
-  }
-  return true;
+  console.log($card);
+  console.log($card.hasClass("flipped"));
+  return !$card.hasClass("flipped");
 }
 
 function areMatching(flippedCards) {
@@ -57,7 +54,7 @@ function checkForLowScore(score, $lowScoreOutput) {
   }
   if (score < lowScore) {
     localStorage.setItem("lowScore", score);
-    $lowScoreOutput.html("<h4>New</h4> Low Score: " + score);
+    $lowScoreOutput.html("<em>*New*</em> Low Score: " + score);
   }
 }
 
