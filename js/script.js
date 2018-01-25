@@ -28,8 +28,6 @@ function assignCardFaces(cardFaces) {
 }
 
 function isNotFlipped($card) {
-  console.log($card);
-  console.log($card.hasClass("flipped"));
   return !$card.hasClass("flipped");
 }
 
@@ -41,7 +39,7 @@ function hideCards(flippedCards) {
   setTimeout(function() {
     $(flippedCards[0]).removeClass("flipped");
     $(flippedCards[1]).removeClass("flipped");
-  }, 600)
+  }, 600);
 }
 
 function hideScoreBoard($scoreBoard) {
@@ -59,7 +57,9 @@ function checkForLowScore(score, $lowScoreOutput) {
 }
 
 function renderWinScreen($winScreen) {
-  $winScreen.addClass("visible");
+  setTimeout(function() {
+    $winScreen.addClass("visible");
+  }, 600);
 }
 
 $(document).ready(function(){
