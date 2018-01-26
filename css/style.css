@@ -1,15 +1,29 @@
 body {
   margin: 0;
+  color: #4d4d4d;
+  font-family: Open Sans, sans-serif;
+  letter-spacing: 1px;
+  font-weight: 300;
+  font-size: 15px;
 }
 
 h1 {
-  font-size: 30px;
+  color: white;
+  font-family: Comfortaa, cursive;
+  letter-spacing: 3px;
+  font-size: 42px;
   margin: 0;
 }
 
 h2 {
   font-size: 80px;
   margin: 5px 0 0;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 300;
+  margin: 0;
 }
 
 p {
@@ -22,6 +36,7 @@ a {
 
 header {
   background-color: lightpink;
+  padding: 0px 8px 0px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,12 +44,32 @@ header {
   align-items: center;
 }
 
+#new-game-button {
+  text-decoration: none;
+  color: white;
+  margin-top: 40px;
+  padding: 12px 15px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px white;
+}
+
+#new-game-button:hover {
+  background-color: white;
+  color: lightpink;
+  margin-top: 40px;
+  padding: 12px 15px;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 2px white;
+}
+
 #game-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 8px 25px;
+  padding: 50px 8px 30px;
 }
 
 #game {
@@ -53,7 +88,8 @@ header {
   cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 1s;
+  transition: transform .7s;
+  box-shadow: 0px 2px 4px gray;
 }
 
 .game-card figure {
@@ -68,7 +104,7 @@ header {
 }
 
 .game-card .front {
-  background-color: lightblue;
+  background-color: #b6e6ff;
 }
 
 .game-card .back {
@@ -88,11 +124,12 @@ header {
 }
 
 #score-board {
-  margin: 20px 0 0;
+  margin: 30px 0 0;
   display: flex;
 }
 
 .score {
+  display: inline-block;
   padding: 0 20px 0;
 }
 
@@ -114,26 +151,48 @@ header {
   justify-content: center;
   visibility: hidden;
   opacity: 0;
-  transition: all 5s;
 }
 
 #win-screen>* {
-  margin: 20px;
+  line-height: 0;
+  margin: 25px;
 }
 
 #win-screen.visible {
   visibility: visible;
   opacity: 1;
-  transition: all .5s;
+  transition: all 0.8s;
+}
+
+#replay-button {
+  cursor: pointer;
+  padding: 15px;
+  margin: 10px;
+  background-color: #f0f0ff;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px white;
+}
+
+#replay-button:hover {
+  background-color: #f8f8ff;
+  border: 1px solid white;
+  box-shadow: 0px 0px 5px 1px white;
+}
+
+em {
+  font-size: 14px;
+  transition: 3s;
 }
 
 footer {
   background-color: lightpink;
+  font-size: 13px;
   padding: 10px;
   width: 100%;
   text-align: center;
 }
 
 footer a:hover {
-  color: #444;
+  color: #808080;
 }

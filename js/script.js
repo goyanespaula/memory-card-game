@@ -1,4 +1,4 @@
-var possibleCardFaces = ["&#x1F600;", "&#x1F60D;", "&#x1F636;", "&#x1F61C;", "&#x1F92B;", "&#x1F913;", "&#x1F600;", "&#x1F60D;", "&#x1F636;", "&#x1F61C;", "&#x1F92B;", "&#x1F913;"];
+var possibleCardFaces = ["&#x1F602;", "&#x1F60E;", "&#x1F60D;", "&#x1F61C;", "&#x1F643;", "&#x1F913;", "&#x1F602;", "&#x1F60E;", "&#x1F60D;", "&#x1F61C;", "&#x1F643;", "&#x1F913;"];
 var lowScore = localStorage.getItem("lowScore");
 var score = 0;
 var flippedCards = [];
@@ -52,7 +52,7 @@ function checkForLowScore(score, $lowScoreOutput) {
   }
   if (score < lowScore) {
     localStorage.setItem("lowScore", score);
-    $lowScoreOutput.html("<em>*New*</em> Low Score: " + score);
+    $lowScoreOutput.html("<em>*new*</em> Low Score: " + score);
   }
 }
 
@@ -70,15 +70,16 @@ $(document).ready(function(){
   var $gameClicks = $(".click-count");
   var $lowScoreOutput = $(".low-score");
   var $winScreen = $("#win-screen");
-  var $replay = $("#replay");
+  var $replay = $("#replay-button");
 
   assignLowScore($lowScoreOutput);
   assignCardFaces(cardFaces);
 
-  $gameContainer.on("click", ".front", function(event) {
+  $gameContainer.on("click", ".front, .front h2", function(event) {
     if(event.target != this){ return true; }
 
-    var $card = $(event.target).parent();
+    // in case I decide to put a figure on front of card
+    var $card = $(event.target).closest(".game-card");
 
     if (isNotFlipped($card)) {
       $card.addClass("flipped");
