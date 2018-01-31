@@ -89,7 +89,7 @@ header {
   cursor: pointer;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform .7s;
+  transition: transform .65s;
   box-shadow: 0px 2px 4px gray;
 }
 

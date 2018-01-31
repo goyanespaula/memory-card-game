@@ -3,6 +3,8 @@ var lowScore = localStorage.getItem("lowScore");
 var score = 0;
 var flippedCards = [];
 var matchedCards = [];
+var locked = false;
+var flipTimeout = 700;
 
 function assignLowScore($lowScoreOutput) {
   lowScore = lowScore || "N/A";
@@ -39,7 +41,8 @@ function hideCards(flippedCards) {
   setTimeout(function() {
     $(flippedCards[0]).removeClass("flipped");
     $(flippedCards[1]).removeClass("flipped");
-  }, 600);
+    locked = false;
+  }, flipTimeout);
 }
 
 function hideScoreBoard($scoreBoard) {
@@ -59,7 +62,7 @@ function checkForLowScore(score, $lowScoreOutput) {
 function renderWinScreen($winScreen) {
   setTimeout(function() {
     $winScreen.addClass("visible");
-  }, 600);
+  }, 400);
 }
 
 $(document).ready(function(){
@@ -76,7 +79,7 @@ $(document).ready(function(){
   assignCardFaces(cardFaces);
 
   $gameContainer.on("click", ".front, .front h2", function(event) {
-    if(event.target != this){ return true; }
+    if(event.target != this || locked){ return true; }
 
     // in case I decide to put a figure on front of card
     var $card = $(event.target).closest(".game-card");
@@ -92,14 +95,15 @@ $(document).ready(function(){
       if (areMatching(flippedCards)) {
         matchedCards.push(flippedCards[0], flippedCards[1]);
       } else {
+        locked = true;
         hideCards(flippedCards);
       }
       flippedCards = [];
     }
 
     if(matchedCards.length === gameCardElements.length) {
-      hideScoreBoard($scoreBoard);
       checkForLowScore(score, $lowScoreOutput);
+      hideScoreBoard($scoreBoard);
       renderWinScreen($winScreen);
     }
   });
