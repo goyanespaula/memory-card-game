@@ -192,9 +192,10 @@ em {
 footer {
   background-color: lightpink;
   font-size: 13px;
-  padding: 10px;
+  padding: 12px;
   width: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
 
 footer.hidden {
