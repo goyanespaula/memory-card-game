@@ -73,6 +73,10 @@ header {
   padding: 50px 8px 30px;
 }
 
+#game-container.hidden {
+  display: none;
+}
+
 #game {
   display: flex;
   flex-wrap: wrap;
@@ -191,6 +195,10 @@ footer {
   padding: 10px;
   width: 100%;
   text-align: center;
+}
+
+footer.hidden {
+  display: none;
 }
 
 footer a:hover {

@@ -23,9 +23,9 @@ function getRandomFace(randomIndex) {
   return face;
 }
 
-function assignCardFaces(cardFaces) {
+function assignCardFaces($cardFaces) {
   for (var i = 0; i < 12; i++) {
-    $(cardFaces[i]).html("<h2>" + getRandomFace() + "</h2>");
+    $($cardFaces[i]).html("<h2>" + getRandomFace() + "</h2>");
   }
 }
 
@@ -55,6 +55,7 @@ function checkForLowScore(score, $lowScoreOutput) {
   }
   if (score < lowScore) {
     localStorage.setItem("lowScore", score);
+    lowScore = localStorage.getItem("lowScore");
     $lowScoreOutput.html("<em>*new*</em> Low Score: " + score);
   }
 }
@@ -65,18 +66,35 @@ function renderWinScreen($winScreen) {
   }, 400);
 }
 
+function reset($lowScoreOutput, $gameClicks, $gameCardElements, $winScreen, $scoreBoard) {
+  matchedCards = [];
+  score = 0;
+  $lowScoreOutput.text("Low Score: " + lowScore);
+  $gameClicks.text("Total Clicks: " + score);
+  $gameCardElements.removeClass("flipped");
+  $winScreen.removeClass("visible");
+  $scoreBoard.removeClass("hidden");
+}
+
 $(document).ready(function(){
+  var $newGameButton = $("#new-game-button");
   var $gameContainer = $("#game-container");
-  var gameCardElements = $(".game-card");
-  var cardFaces = $(".game-card .back");
+  var $gameCardElements = $(".game-card");
+  var $cardFaces = $(".game-card .back");
   var $scoreBoard = $("#score-board");
   var $gameClicks = $(".click-count");
   var $lowScoreOutput = $(".low-score");
   var $winScreen = $("#win-screen");
   var $replay = $("#replay-button");
+  var $footer = $("footer");
 
   assignLowScore($lowScoreOutput);
-  assignCardFaces(cardFaces);
+  assignCardFaces($cardFaces);
+
+  $newGameButton.on("click", function() {
+    $gameContainer.removeClass("hidden");
+    $footer.removeClass("hidden");
+  });
 
   $gameContainer.on("click", ".front, .front h2", function(event) {
     if(event.target != this || locked){ return true; }
@@ -101,7 +119,7 @@ $(document).ready(function(){
       flippedCards = [];
     }
 
-    if(matchedCards.length === gameCardElements.length) {
+    if(matchedCards.length === $gameCardElements.length) {
       checkForLowScore(score, $lowScoreOutput);
       hideScoreBoard($scoreBoard);
       renderWinScreen($winScreen);
@@ -109,7 +127,7 @@ $(document).ready(function(){
   });
 
   $replay.on("click", function() {
-    window.location.reload();
+    reset($lowScoreOutput, $gameClicks, $gameCardElements, $winScreen, $scoreBoard);
   });
 
   // Smooth Scrolling
