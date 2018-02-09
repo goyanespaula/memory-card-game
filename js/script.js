@@ -27,6 +27,7 @@ function assignCardFaces($cardFaces) {
   for (var i = 0; i < 12; i++) {
     $($cardFaces[i]).html("<h2>" + getRandomFace() + "</h2>");
   }
+  possibleCardFaces = ["&#x1F602;", "&#x1F60E;", "&#x1F60D;", "&#x1F61C;", "&#x1F643;", "&#x1F913;", "&#x1F602;", "&#x1F60E;", "&#x1F60D;", "&#x1F61C;", "&#x1F643;", "&#x1F913;"];
 }
 
 function isNotFlipped($card) {
@@ -66,14 +67,15 @@ function renderWinScreen($winScreen) {
   }, 400);
 }
 
-function reset($lowScoreOutput, $gameClicks, $gameCardElements, $winScreen, $scoreBoard) {
+function reset($lowScoreOutput, $cardFaces, $gameClicks, $gameCardElements, $winScreen, $scoreBoard) {
+  assignCardFaces($cardFaces);
   matchedCards = [];
   score = 0;
   $lowScoreOutput.text("Low Score: " + lowScore);
   $gameClicks.text("Total Clicks: " + score);
-  $gameCardElements.removeClass("flipped");
   $winScreen.removeClass("visible");
   $scoreBoard.removeClass("hidden");
+  $gameCardElements.removeClass("flipped");
 }
 
 $(document).ready(function(){
@@ -127,7 +129,7 @@ $(document).ready(function(){
   });
 
   $replay.on("click", function() {
-    reset($lowScoreOutput, $gameClicks, $gameCardElements, $winScreen, $scoreBoard);
+    reset($lowScoreOutput, $cardFaces, $gameClicks, $gameCardElements, $winScreen, $scoreBoard);
   });
 
   // Smooth Scrolling
